@@ -8,7 +8,7 @@ class DatabaseManager:
         self.init_database()
 
     def init_database(self):
-        
+        # Create Expenses table is not exists
         with sqlite3.connect(self.db_file) as conn:
             cursor = conn.cursor()
             cursor.execute('''
@@ -17,8 +17,20 @@ class DatabaseManager:
                     amount REAL,
                     descripcion TEXT,
                     date TEXT DEFAULT (date('now'))
-                );
+                )
             ''')
 
+            conn.commit()
+
+
+    def add_expense(self, description, amount):
+
+        with sqlite3.connect(self.db_file) as conn:
+            cursor = conn.cursor()
+            cursor.execute('''
+                INSERT INTO Expenses (description, amount) 
+                VALUES (?, ?)
+                ''', (description, amount))
+            
             conn.commit()
 
