@@ -24,7 +24,6 @@ class DatabaseManager:
 
 
     def add_expense(self, description, amount):
-
         with sqlite3.connect(self.db_file) as conn:
             cursor = conn.cursor()
             cursor.execute('''
@@ -34,3 +33,9 @@ class DatabaseManager:
             
             conn.commit()
 
+
+    def get_expenses(self):
+        with sqlite3.connect(self.db_file) as conn:
+            cursor = conn.cursor()
+            cursor.execute("SELECT * FROM Expenses")
+            return cursor.fetchall()
