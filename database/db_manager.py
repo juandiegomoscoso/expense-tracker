@@ -69,4 +69,15 @@ class DatabaseManager:
             conn.commit()
 
 
+    
+    def get_summary_all_expenses(self):
+        with sqlite3.connect(self.db_file) as conn:
+            cursor = conn.cursor()
+
+            cursor.execute('''
+                SELECT SUM(amount) FROM Expenses
+            ''')
+
+            return cursor.fetchone()
+
             
