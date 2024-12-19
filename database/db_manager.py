@@ -39,3 +39,20 @@ class DatabaseManager:
             cursor = conn.cursor()
             cursor.execute("SELECT * FROM Expenses")
             return cursor.fetchall()
+        
+
+    def update_expense(self, id, description=None, amount=None):
+        with sqlite3.connect(self.db_file) as conn:
+            cursor = conn.cursor()
+            if description:
+                cursor.execute('''
+                    UPDATE Expenses SET description=?
+                    WHERE id=?
+                ''', (description, id))
+
+            if amount:
+                cursor.execute('''
+                    UPDATE Expenses SET amount=?
+                ''', (amount, id))
+            
+            conn.commit()
