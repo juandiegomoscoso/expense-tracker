@@ -56,3 +56,17 @@ class DatabaseManager:
                 ''', (amount, id))
             
             conn.commit()
+
+
+
+    def delete_expense(self, id):
+        with sqlite3.connect(self.db_file) as conn:
+            cursor = conn.cursor()
+            cursor.execute('''
+                DELETE * FROM Expenses WHERE id=?
+            ''', (id,))
+
+            conn.commit()
+
+
+            
