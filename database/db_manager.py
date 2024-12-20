@@ -7,16 +7,31 @@ class DatabaseManager:
         self.db_file = db_file
         self.init_database()
 
+
     def init_database(self):
         # Create Expenses table is not exists
         with sqlite3.connect(self.db_file) as conn:
             cursor = conn.cursor()
+
+            cursor.execute('''
+                CREATE IF NOT EXISTS TABLE Categeries (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    name TEXT
+                )
+            ''')
+
+            default_categories = ['Food', 'Transport', 'Rent', 'Entertainment', 'Others']
+            for category in default_categories:
+                cursor.execute("INSERT OR IGNORE INTO Categories (name)", (category,))
+
             cursor.execute('''
                 CREATE TABLE IF NOT EXISTS Expenses (
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
                     amount REAL,
                     descripcion TEXT,
                     date TEXT DEFAULT (date('now'))
+                    category_id INTEGER,
+                    CONTRAINT FOREIGN KEY category_id REFERENCES Categories(id)
                 )
             ''')
 
@@ -58,7 +73,6 @@ class DatabaseManager:
             conn.commit()
 
 
-
     def delete_expense(self, id):
         with sqlite3.connect(self.db_file) as conn:
             cursor = conn.cursor()
@@ -67,7 +81,6 @@ class DatabaseManager:
             ''', (id,))
 
             conn.commit()
-
 
     
     def get_summary_all_expenses(self):
@@ -79,7 +92,6 @@ class DatabaseManager:
             ''')
 
             return cursor.fetchone()
-
 
     
     def get_summary_expenses_of_month(self, month, year):
