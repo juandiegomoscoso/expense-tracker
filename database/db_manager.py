@@ -80,4 +80,19 @@ class DatabaseManager:
 
             return cursor.fetchone()
 
+
+    
+    def get_summary_expenses_of_month(self, month, year):
+        with sqlite3.connect(self.db_file) as conn:
+            cursor = conn.cursor()
+
+            cursor.execute('''
+                SELECT SUM(amount)
+                FROM Expenses
+                WHERE CAST(strtime('%m', date) AS INTEGER) = ? 
+                    AND CAST(strtime('%y', date) AS INTEGER) = ?
+            ''', (month, year))
+
+            return cursor.fetchone()
+
             
