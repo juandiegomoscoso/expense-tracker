@@ -89,8 +89,8 @@ class DatabaseManager:
             cursor.execute('''
                 SELECT SUM(amount)
                 FROM Expenses
-                WHERE CAST(strtime('%m', date) AS INTEGER) = ? 
-                    AND CAST(strtime('%y', date) AS INTEGER) = ?
+                WHERE CAST(strftime('%m', date) AS INTEGER) = ? 
+                    AND CAST(strftime('%Y', date) AS INTEGER) = ?
             ''', (month, year))
 
             return cursor.fetchone()
