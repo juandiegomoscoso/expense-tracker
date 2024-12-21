@@ -59,7 +59,12 @@ class DatabaseManager:
     def get_expenses(self):
         with sqlite3.connect(self.db_file) as conn:
             cursor = conn.cursor()
-            cursor.execute("SELECT * FROM Expenses")
+            cursor.execute('''
+                SELECT e.id, e.date, e.description, e.amount, c.category
+                FROM Expenses e
+                LEFT JOIN Categories c
+                    ON c.id = e.category_id
+                ''')
             return cursor.fetchall()
         
 
@@ -194,4 +199,17 @@ class DatabaseManager:
                     SET name = ?
                     WHERE id = ?
                 ''', (category_name, category_id))
+
+    
+    def get_expenses_by_category(self):
+        with sqlite3.connect(self.db_file) as conn:
+            cursor = conn.cursor()
+
+            cursor.execute('''
+                SELECT category, SUM(amount)
+                FROM Expenses
+                GROUP BY Category
+            ''')
+
+            return cursor.fetchall()
                 
