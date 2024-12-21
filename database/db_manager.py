@@ -9,7 +9,6 @@ class DatabaseManager:
 
 
     def init_database(self):
-        # Create Expenses table is not exists
         with sqlite3.connect(self.db_file) as conn:
             cursor = conn.cursor()
 
@@ -47,8 +46,7 @@ class DatabaseManager:
             if result:
                 category_id = result[0]
             else:
-                cursor.execute("INSERT INTO Categories (name) VALUES (?)", (category_name,))
-                category_id = cursor.lastrowid
+                raise ValueError(f"Category '{category_name}' not found in the database.")
             
             cursor.execute('''
                 INSERT INTO Expenses (description, amount, category_id) 
