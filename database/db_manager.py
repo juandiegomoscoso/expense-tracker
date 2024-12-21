@@ -1,5 +1,4 @@
 import sqlite3
-from datetime import date
 
 class DatabaseManager:
     def __init__(self, db_file="expenses.db"):
