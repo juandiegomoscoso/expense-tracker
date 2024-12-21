@@ -14,7 +14,7 @@ class DatabaseManager:
             cursor.execute('''
                 CREATE IF NOT EXISTS TABLE Categeries (
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
-                    name TEXT 
+                    name TEXT UNIQUE
                 )
             ''')
 
