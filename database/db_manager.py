@@ -166,3 +166,32 @@ class DatabaseManager:
                 SELECT * FROM Categories
             ''')
             return cursor.fetchall()
+        
+
+    def update_category(self, category_id, category_name):
+        with sqlite3.connect(self.db_file) as conn:
+            cursor = conn.cursor()
+
+            cursor.execute('''
+                SELECT id
+                FROM Category
+                WHERE name = ?
+            ''', (category_name))
+
+            result = cursor.fetchone()
+
+            if result:
+                old_cat_id = result[0]
+                cursor.execute('''
+                    UPDATE Expenses
+                    SET category_id = ?
+                    WHERE category_id = ?
+                ''', (old_cat_id, category_id))
+
+            else:
+                cursor.execute('''
+                    UPDATE Categories 
+                    SET name = ?
+                    WHERE id = ?
+                ''', (category_name, category_id))
+                
