@@ -157,3 +157,12 @@ class DatabaseManager:
             ''', (category_id,))
 
             conn.commit()
+
+
+    def get_categories(self):
+        with sqlite3.connect(self.db_file) as conn:
+            cursor = conn.cursor()
+            cursor.execute('''
+                SELECT * FROM Categories
+            ''')
+            return cursor.fetchall()
