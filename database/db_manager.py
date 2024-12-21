@@ -65,7 +65,7 @@ class DatabaseManager:
             return cursor.fetchall()
         
 
-    def update_expense(self, id, description=None, amount=None):
+    def update_expense(self, id, description=None, amount=None, category_name=None):
         with sqlite3.connect(self.db_file) as conn:
             cursor = conn.cursor()
             if description:
@@ -77,7 +77,22 @@ class DatabaseManager:
             if amount:
                 cursor.execute('''
                     UPDATE Expenses SET amount=?
+                    WHERE id=?
                 ''', (amount, id))
+            
+            if category_name:
+                cursor.execute("SELECT id FROM Categories WHERE name=?", (category_name,))
+                result = cursor.fetchone()
+                if result:
+                    category_id = result[0]
+                else:
+                    cursor.execute("INSERT INTO Categories (name) VALUES (?)", (category_name,))
+                    category_id = cursor.lastrowid
+                
+                cursor.execute('''
+                    UPDATE Expenses SET category_id=?
+                    WHERE id=?
+                ''', (category_id, id))
             
             conn.commit()
 
