@@ -15,7 +15,7 @@ class DatabaseManager:
             cursor.execute('''
                 CREATE IF NOT EXISTS TABLE Categeries (
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
-                    name TEXT
+                    name TEXT 
                 )
             ''')
 
@@ -129,3 +129,31 @@ class DatabaseManager:
 
             return cursor.fetchone()
 
+
+    def add_category(self, category_name):
+        with sqlite3.connect(self.db_file) as conn:
+            cursor = conn.cursor()
+            cursor.execute('''
+                INSERT INTO Categories (name)
+                VALUES (?)
+            ''', (category_name,))
+            conn.commit()
+
+
+    def delete_category(self, category_id):
+        with sqlite3.connect(self.db_file) as conn:
+            cursor = conn.cursor()
+            
+            cursor.execute('''
+                UPDATE Expenses 
+                SET category_id = NULL
+                WHERE category_id = ?
+            ''', (category_id,))
+
+
+            cursor.execute('''
+                DELETE FROM Categories 
+                WHERE category_id = ?
+            ''', (category_id,))
+
+            conn.commit()
