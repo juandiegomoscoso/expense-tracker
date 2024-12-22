@@ -59,7 +59,7 @@ class DatabaseManager:
         with sqlite3.connect(self.db_file) as conn:
             cursor = conn.cursor()
             cursor.execute('''
-                SELECT e.id, e.date, e.description, e.amount, c.category
+                SELECT e.id, e.date, e.description, e.amount, c.name
                 FROM Expenses e
                 LEFT JOIN Categories c
                     ON c.id = e.category_id
@@ -178,7 +178,7 @@ class DatabaseManager:
 
             cursor.execute('''
                 SELECT id
-                FROM Category
+                FROM Categories
                 WHERE name = ?
             ''', (category_name))
 
@@ -205,9 +205,11 @@ class DatabaseManager:
             cursor = conn.cursor()
 
             cursor.execute('''
-                SELECT category, SUM(amount)
-                FROM Expenses
-                GROUP BY Category
+                SELECT c.name, SUM(e.amount)
+                FROM Expenses e
+                JOIN Categories c
+                    ON c.id = e.category_id
+                GROUP BY c.name
             ''')
 
             return cursor.fetchall()
