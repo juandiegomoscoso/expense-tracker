@@ -12,7 +12,7 @@ class DatabaseManager:
             cursor = conn.cursor()
 
             cursor.execute('''
-                CREATE IF NOT EXISTS TABLE Categeries (
+                CREATE TABLE IF NOT EXISTS Categories (
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
                     name TEXT UNIQUE
                 )
@@ -20,16 +20,16 @@ class DatabaseManager:
 
             default_categories = ['Food', 'Transport', 'Rent', 'Entertainment', 'Others']
             for category in default_categories:
-                cursor.execute("INSERT OR IGNORE INTO Categories (name)", (category,))
+                cursor.execute("INSERT OR IGNORE INTO Categories (name) VALUES (?)", (category,))
 
             cursor.execute('''
                 CREATE TABLE IF NOT EXISTS Expenses (
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
                     amount REAL,
-                    descripcion TEXT,
-                    date TEXT DEFAULT (date('now'))
+                    description TEXT,
+                    date TEXT DEFAULT (date('now')),
                     category_id INTEGER,
-                    CONTRAINT FOREIGN KEY category_id REFERENCES Categories(id)
+                    CONSTRAINT fk_category FOREIGN KEY (category_id) REFERENCES Categories(id)
                 )
             ''')
 
