@@ -103,7 +103,7 @@ class DatabaseManager:
         with sqlite3.connect(self.db_file) as conn:
             cursor = conn.cursor()
             cursor.execute('''
-                DELETE * FROM Expenses WHERE id=?
+                DELETE FROM Expenses WHERE id=?
             ''', (id,))
 
             conn.commit()
