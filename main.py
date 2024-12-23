@@ -16,3 +16,9 @@ def parse_arguments():
     get_exp_parser = subparsers.add_parser("get_expenses", help="Get list of expenses")
 
     
+    # Update expense
+    update_exp_parser = subparsers.add_parser("update_expense", help="Update an expense")
+    update_exp_parser.add_argument("id", type=int, help="Expense ID")
+    update_exp_parser.add_argument("--description", help="New description")
+    update_exp_parser.add_argument("--amount", type=float, help="New amount")
+    update_exp_parser.add_argument("--category", help="New category")
