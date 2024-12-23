@@ -6,7 +6,8 @@ def main():
     db_manager = DatabaseManager("expenses.db")
 
     if args.command == "add_expense":
-        db_manager.add_expense(args.description, args.amount, args.category)
+        new_id = db_manager.add_expense(args.description, args.amount, args.category)
+        print(f"New expense added with id {new_id}")
 
     elif args.command == "get_expenses":
         expenses = db_manager.get_expenses()
@@ -28,7 +29,8 @@ def main():
         db_manager.delete_expense(args.id)
 
     elif args.command == "add_category":
-        db_manager.add_category(args.name)
+        new_id = db_manager.add_category(args.name)
+        print(f"New category added with id {new_id}")
 
     elif args.command == "get_categories":
         categories = db_manager.get_categories()
