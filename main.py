@@ -56,3 +56,8 @@ def parse_arguments():
     # Update category
     update_cat_parser = subparsers.add_parser("update_category", help="Update a category") 
     update_cat_parser.add_argument("id", help="Category id")
+
+
+    # Get summary of all expenses by category
+    get_summary_cat_parser = subparsers.add_parser("get_summary_category", help="Get summary of all expenses by category")
+    
