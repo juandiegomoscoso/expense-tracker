@@ -34,8 +34,12 @@ def main():
         db_manager.delete_expense(args.id)
 
     elif args.command == "add_category":
-        new_id = db_manager.add_category(args.name)
-        print(f"New category added with id {new_id}")
+        try:
+            new_id = db_manager.add_category(args.name)
+            print(f"New category added with id {new_id}")
+        except ValueError as ve:
+            print(f"Error: {str(ve)}")
+            sys.exit(1)
 
     elif args.command == "get_categories":
         categories = db_manager.get_categories()
