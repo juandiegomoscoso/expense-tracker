@@ -54,6 +54,8 @@ class DatabaseManager:
             
             conn.commit()
 
+            return cursor.lastrowid
+
 
     def get_expenses(self):
         with sqlite3.connect(self.db_file) as conn:
@@ -142,6 +144,7 @@ class DatabaseManager:
                 VALUES (?)
             ''', (category_name,))
             conn.commit()
+            return cursor.lastrowid
 
 
     def delete_category(self, category_id):
