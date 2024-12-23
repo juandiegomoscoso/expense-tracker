@@ -28,7 +28,10 @@ def main():
 
     elif args.command == "get_summary_month":
         summary = db_manager.get_summary_expenses_of_month(args.month, args.year)
-        print(f"Total expenses for {args.month}/{args.year}: {summary[0]}")
+        if summary:
+            print(f"Total expenses for {args.month}/{args.year}: {summary[0]}")
+        else:
+            print(f"No expenses for {args.month}/{args.year}")
 
     elif args.command == "delete_expense":
         db_manager.delete_expense(args.id)
