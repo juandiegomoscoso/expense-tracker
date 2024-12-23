@@ -34,3 +34,8 @@ def parse_arguments():
     get_summary_month_parser.add_argument("--year", type=int, help="Year")
 
     
+    # Delete expense
+    delete_exp_parser = subparsers.add_parser("delete_expense", help="Delete an expense")
+    delete_exp_parser.add_argument("id", type=int, help="Expense ID")
+
+    
