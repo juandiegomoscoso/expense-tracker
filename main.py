@@ -6,8 +6,12 @@ def main():
     db_manager = DatabaseManager("expenses.db")
 
     if args.command == "add_expense":
-        new_id = db_manager.add_expense(args.description, args.amount, args.category)
-        print(f"New expense added with id {new_id}")
+        try:
+            new_id = db_manager.add_expense(args.description, args.amount, args.category)
+            print(f"New expense added with id {new_id}")
+        except ValueError as ve:
+            print(f"Error: {str(ve)}")
+            sys.exit(1)
 
     elif args.command == "get_expenses":
         expenses = db_manager.get_expenses()
