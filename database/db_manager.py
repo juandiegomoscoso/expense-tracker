@@ -36,7 +36,7 @@ class DatabaseManager:
             conn.commit()
 
 
-    def add_expense(self, description, amount, category_name='Others'):
+    def add_expense(self, description, amount, category_name):
         with sqlite3.connect(self.db_file) as conn:
             cursor = conn.cursor()
 
