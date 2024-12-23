@@ -22,3 +22,8 @@ def parse_arguments():
     update_exp_parser.add_argument("--description", help="New description")
     update_exp_parser.add_argument("--amount", type=float, help="New amount")
     update_exp_parser.add_argument("--category", help="New category")
+
+
+    # Get summary of expenses
+    get_summary_parser = subparsers.add_parser("get_summary", help="Get summary of all expenses")
+    
