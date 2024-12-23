@@ -27,3 +27,10 @@ def parse_arguments():
     # Get summary of expenses
     get_summary_parser = subparsers.add_parser("get_summary", help="Get summary of all expenses")
     
+
+    # Get summary of expenses of a month
+    get_summary_month_parser = subparsers.add_parser("get_summary_month", help="Get summary of expenses of a month")
+    get_summary_month_parser.add_argument("--month", type=int, help="Month")
+    get_summary_month_parser.add_argument("--year", type=int, help="Year")
+
+    
