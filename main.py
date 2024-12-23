@@ -50,7 +50,7 @@ def parse_arguments():
 
     # Delete category
     delete_cat_parser = subparsers.add_parser("delete_category", help="Delete a category")
-    delete_cat_parser.add_argument("nid", help="Category id")
+    delete_cat_parser.add_argument("id", help="Category id")
 
 
     # Update category
