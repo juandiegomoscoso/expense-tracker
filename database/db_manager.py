@@ -158,10 +158,9 @@ class DatabaseManager:
                 WHERE category_id = ?
             ''', (category_id,))
 
-
             cursor.execute('''
                 DELETE FROM Categories 
-                WHERE category_id = ?
+                WHERE id = ?
             ''', (category_id,))
 
             conn.commit()
@@ -184,24 +183,20 @@ class DatabaseManager:
                 SELECT id
                 FROM Categories
                 WHERE name = ?
-            ''', (category_name))
-
+            ''', (category_name,))
+            
             result = cursor.fetchone()
 
             if result:
-                old_cat_id = result[0]
-                cursor.execute('''
-                    UPDATE Expenses
-                    SET category_id = ?
-                    WHERE category_id = ?
-                ''', (old_cat_id, category_id))
-
+                raise ValueError(f"Category '{category_name}' already exists.")
             else:
                 cursor.execute('''
                     UPDATE Categories 
                     SET name = ?
                     WHERE id = ?
                 ''', (category_name, category_id))
+            
+            conn.commit()
 
     
     def get_expenses_by_category(self):
@@ -217,4 +212,4 @@ class DatabaseManager:
             ''')
 
             return cursor.fetchall()
-                
+
