@@ -12,4 +12,7 @@ def parse_arguments():
     add_exp_parser.add_argument("--amount", required=True, type=float, help="Expense amount")
     add_exp_parser.add_argument("--category", help="Expense category")
 
+    # Get expenses
+    get_exp_parser = subparsers.add_parser("get_expenses", help="Get list of expenses")
+
     
