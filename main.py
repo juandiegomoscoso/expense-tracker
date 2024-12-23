@@ -1,6 +1,53 @@
 import argparse
 from database.db_manager import DatabaseManager
 
+def main():
+    args = parse_arguments()
+    db_manager = DatabaseManager("expenses.db")
+
+    if args.command == "add_expense":
+        db_manager.add_expense(args.description, args.amount, args.category)
+
+    elif args.command == "get_expenses":
+        expenses = db_manager.get_expenses()
+        for expense in expenses:
+            print(expense)
+
+    elif args.command == "update_expense":
+        db_manager.update_expense(args.id, args.description, args.amount, args.category)
+
+    elif args.command == "get_summary":
+        summary = db_manager.get_summary_all_expenses()
+        print(f"Total expenses: {summary[0]}")
+
+    elif args.command == "get_summary_month":
+        summary = db_manager.get_summary_expenses_of_month(args.month, args.year)
+        print(f"Total expenses for {args.month}/{args.year}: {summary[0]}")
+
+    elif args.command == "delete_expense":
+        db_manager.delete_expense(args.id)
+
+    elif args.command == "add_category":
+        db_manager.add_category(args.name)
+
+    elif args.command == "get_categories":
+        categories = db_manager.get_categories()
+        for category in categories:
+            print(category)
+
+    elif args.command == "delete_category":
+        db_manager.delete_category(args.id)
+
+    elif args.command == "update_category":
+        db_manager.update_category(args.id)
+
+    elif args.command == "get_summary_category":
+        summary = db_manager.get_summary_expenses_by_category()
+        for category, amount in summary:
+            print(f"{category}: {amount}")
+
+    else:
+        print("Invalid command")
 
 def parse_arguments():
     parser = argparse.ArgumentParser(description="Expenses tracker")
@@ -61,3 +108,4 @@ def parse_arguments():
     # Get summary of all expenses by category
     get_summary_cat_parser = subparsers.add_parser("get_summary_category", help="Get summary of all expenses by category")
     
+    return parser.parse_args()
