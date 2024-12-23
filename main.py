@@ -43,4 +43,5 @@ def parse_arguments():
     add_cat_parser = subparsers.add_parser("add_category", help="Add a new category")
     add_cat_parser.add_argument("name", help="Category name")
 
-    
+    # Get categories
+    get_cat_parser = subparsers.add_parser("get_categories", help="Get list of categories")
