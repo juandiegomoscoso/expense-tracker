@@ -201,7 +201,7 @@ class DatabaseManager:
             conn.commit()
 
     
-    def get_expenses_by_category(self):
+    def get_summary_by_category(self):
         with sqlite3.connect(self.db_file) as conn:
             cursor = conn.cursor()
 

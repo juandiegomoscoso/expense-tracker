@@ -53,7 +53,7 @@ def main():
         db_manager.update_category(args.id)
 
     elif args.command == "get_summary_category":
-        summary = db_manager.get_summary_expenses_by_category()
+        summary = db_manager.get_summary_by_category()
         for category, amount in summary:
             print(f"{category}: {amount}")
 
