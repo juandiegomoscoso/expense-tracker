@@ -38,4 +38,9 @@ def parse_arguments():
     delete_exp_parser = subparsers.add_parser("delete_expense", help="Delete an expense")
     delete_exp_parser.add_argument("id", type=int, help="Expense ID")
 
+
+    # Add category
+    add_cat_parser = subparsers.add_parser("add_category", help="Add a new category")
+    add_cat_parser.add_argument("name", help="Category name")
+
     
