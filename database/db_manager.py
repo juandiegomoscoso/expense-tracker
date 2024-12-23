@@ -44,6 +44,8 @@ class DatabaseManager:
             result = cursor.fetchone()
             if result:
                 category_id = result[0]
+            elif category_name == "None":
+                category_id = None
             else:
                 raise ValueError(f"Category '{category_name}' not found in the database.")
             
