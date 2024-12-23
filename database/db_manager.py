@@ -139,10 +139,11 @@ class DatabaseManager:
     def add_category(self, category_name):
         with sqlite3.connect(self.db_file) as conn:
             cursor = conn.cursor()
-            cursor.execute('''
-                INSERT INTO Categories (name)
-                VALUES (?)
-            ''', (category_name,))
+            try:
+                cursor.execute("INSERT INTO Categories (name) VALUES (?)", (category_name,))
+            except sqlite3.IntegrityError:
+                raise ValueError(f"Category '{category_name}' already exists")
+            
             conn.commit()
             return cursor.lastrowid
 
