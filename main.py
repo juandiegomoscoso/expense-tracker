@@ -1,5 +1,6 @@
 import argparse
 from database.db_manager import DatabaseManager
+import sys
 
 def main():
     args = parse_arguments()
