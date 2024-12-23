@@ -45,3 +45,7 @@ def parse_arguments():
 
     # Get categories
     get_cat_parser = subparsers.add_parser("get_categories", help="Get list of categories")
+
+    # Delete category
+    delete_cat_parser = subparsers.add_parser("delete_category", help="Delete a category")
+    delete_cat_parser.add_argument("nid", help="Category id")
