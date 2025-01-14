@@ -12,7 +12,7 @@ A command-line expense tracking application built with Python and SQLite.
 ## Installation
 1. Clone the repository:
     ```bash
-    git clone https://github.com/yourusername/expense-tracker.git
+    git clone https://github.com/juandiegomoscoso/expense-tracker.git
     cd expense-tracker
     ```
 
