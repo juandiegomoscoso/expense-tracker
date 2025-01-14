@@ -4,7 +4,6 @@ A command-line expense tracking application built with Python and SQLite.
 
 ## Features
 - Track daily expenses with descriptions, amounts, and categories
-- Automatic date tracking when expenses are added
 - Manage expense categories
 - View expense summaries (total, monthly, by category)
 - SQLite database for persistent storage
